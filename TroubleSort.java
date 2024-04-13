@@ -60,7 +60,7 @@ public class Main {
 				if(arr[i]>arr[i+1])
 				{
 					System.out.println("Case #"+k+": "+(i));
-					isOK=false;
+					isOK=false;break
 				}
 			}
 			if(isOK)
