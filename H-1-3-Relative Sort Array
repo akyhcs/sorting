@@ -1,0 +1,24 @@
+class Solution {
+     public int[] relativeSortArray(int[] arr1, int[] arr2) {
+		 Map<Integer, Integer> precedence = new HashMap<Integer, Integer>();
+		 for(int i =0;i<arr2.length;i++)
+		 {
+			 precedence.put(arr2[i], (i+1));
+		 }
+		Comparator<Integer> comparator = (intOne,intTwo) -> {
+			
+			int  precedenceOne = precedence.getOrDefault(intOne, arr1.length*2);
+			int  precedenceTwo = precedence.getOrDefault(intTwo, arr1.length*2);
+            //if both are having same precedence it means both are not present in arr2
+            //so for that we will use ascending order 
+				return precedenceOne!=precedenceTwo ? precedenceOne - precedenceTwo : intOne-intTwo;
+			};
+			List<Integer> list = Arrays.stream(arr1).boxed().collect(Collectors.toList());
+			list.sort(comparator);
+			//System.out.println(list.toString());
+		return list.stream().mapToInt(i -> i).toArray();
+	        
+	    }
+}
+
+///https://leetcode.com/problems/relative-sort-array/
