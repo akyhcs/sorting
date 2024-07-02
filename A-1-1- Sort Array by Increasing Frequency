@@ -1,0 +1,31 @@
+class Solution {
+    public int[] frequencySort(int[] nums) {
+		Map<Integer, Integer> frequency = new HashMap<Integer, Integer>();
+		for(Integer integer : nums)
+		{
+			frequency.put(integer, frequency.getOrDefault(integer, 0)+1);
+		}
+		// converting primitive int  to Integer 
+		List<Integer> list = Arrays.stream(nums).boxed().collect(Collectors.toList());
+        //.boxed().collect(Collectors.toList());
+		list.sort(
+				(a,b) -> {
+					int freA = frequency.get(a);
+					int freB = frequency.get(b);
+					if(freA!=freB)
+					{
+						return freA - freB; // increasing order based on frequency
+					}
+					else
+					{
+						return b - a; // if same frequency then on descending order 
+					}
+				}
+				);
+		nums = list.stream().mapToInt(i -> i).toArray();
+		return nums;
+    }
+
+}
+
+//https://leetcode.com/problems/sort-array-by-increasing-frequency/
