@@ -1,0 +1,32 @@
+class Solution {
+    public String customSortString(String order, String s) {
+    	Map<Character, Integer> charOrder = new HashMap<Character,Integer>();
+    	for(int i =0;i<order.length();i++)
+    	{
+    		charOrder.put(order.charAt(i), i+1);
+    	}
+    	Character[] sCharArr = new Character[s.length()];
+    	for(int i =0 ;i<s.length();i++)
+    	{
+    		sCharArr[i] = s.charAt(i);
+    	}
+    	Arrays.sort(sCharArr,
+    			(a,b)->{
+    				int orderA = charOrder.getOrDefault(a, 201);
+    				int orderB = charOrder.getOrDefault(b, 203);
+    				return orderA - orderB;
+    			}
+    			);
+    	StringBuilder stringBuilder = new StringBuilder(s.length());
+    	for(char c : sCharArr)
+    	{
+    		stringBuilder.append(c);
+    	}
+		return stringBuilder.toString(); 
+    	
+    }
+
+}
+
+
+//https://leetcode.com/problems/custom-sort-string/
