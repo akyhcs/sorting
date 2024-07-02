@@ -1,0 +1,25 @@
+class Solution {
+    	public String largestNumber(int[] nums) {
+		List<Integer> integerList = Arrays.stream(nums).boxed().collect(Collectors.toList());
+		integerList.sort(
+				(a,b) -> {
+					String stringOne = a+""+b ; //30,3 = > 303
+					String stringTwo = b+""+a ; //330
+					return  stringTwo.compareTo(stringOne);//sort in descending order
+					}
+				
+				);
+        if(integerList.get(0)==0)
+            return "0"; // if largest number is 0 then output should be 0 insted of 00000...      
+		nums = integerList.stream().mapToInt(i -> i).toArray();
+		String result="";
+		for(int i =0 ;i<nums.length;i++)
+		{
+			result=result+nums[i];
+		}
+		return result;
+
+	}
+}
+
+//////////https://leetcode.com/problems/largest-number/
