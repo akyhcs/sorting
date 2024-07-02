@@ -1,0 +1,55 @@
+import java.util.*;
+
+public class QualifyingContest {
+    static class Participant {
+        String name;
+        int region;
+        int score;
+
+        Participant(String name, int region, int score) {
+            this.name = name;
+            this.region = region;
+            this.score = score;
+        }
+    }
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        int n = scanner.nextInt();
+        int m = scanner.nextInt();
+        scanner.nextLine();  // consume the remaining newline
+
+        List<Participant> participants = new ArrayList<>();
+
+        for (int i = 0; i < n; i++) {
+            String name = scanner.next();
+            int region = scanner.nextInt();
+            int score = scanner.nextInt();
+            scanner.nextLine();  // consume the remaining newline
+            participants.add(new Participant(name, region, score));
+        }
+
+        // Group participants by region and sort them by score descending
+        Map<Integer, List<Participant>> regions = new HashMap<>();
+        for (Participant p : participants) {
+            regions.computeIfAbsent(p.region, k -> new ArrayList<>()).add(p);
+        }
+
+        for (Map.Entry<Integer, List<Participant>> entry : regions.entrySet()) {
+            List<Participant> regionParticipants = entry.getValue();
+            regionParticipants.sort((p1, p2) -> p2.score - p1.score);
+        }
+
+        // Determine the team for each region
+        for (int i = 1; i <= m; i++) {
+            List<Participant> regionParticipants = regions.get(i);
+            if (regionParticipants.size() > 2 &&
+                regionParticipants.get(1).score == regionParticipants.get(2).score) {
+                System.out.println("?");
+            } else {
+                System.out.println(regionParticipants.get(0).name + " " + regionParticipants.get(1).name);
+            }
+        }
+    }
+}
+//https://codeforces.com/contest/659/problem/B
