@@ -70,3 +70,6 @@ public class Main {
 		}//while
 	}
 }
+/*
+all test cases did not passed on website but pp have litmited test case which are all passed
+*/
