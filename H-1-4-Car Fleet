@@ -1,0 +1,26 @@
+class Solution {
+    	public int carFleet(int target, int[] position, int[] speed) {
+		double carPositionTime[][] = new double[position.length][2];
+		for (int i = 0; i < position.length; i++) {
+			carPositionTime[i][0] = position[i];
+			carPositionTime[i][1] = (target - position[i]) / (double)speed[i];
+		}
+		Comparator<double[]> doubleComparator = (dOne, dTwo) -> {
+			return Double.compare(dTwo[0], dOne[0]);
+		};
+		Arrays.sort(carPositionTime, doubleComparator);
+		int fleetCount = 0;
+		double currentTime = 0.0;
+		for (int i = 0; i < carPositionTime.length; i++) {
+			if (carPositionTime[i][1] > currentTime) {
+				fleetCount++;
+				currentTime = carPositionTime[i][1];
+			}
+		}
+
+		return fleetCount;
+
+	}
+}
+
+////////https://leetcode.com/problems/car-fleet/description/
