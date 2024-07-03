@@ -12,14 +12,14 @@ public class Main
 		int n = Integer.parseInt(bufferedReader.readLine().trim());
 		int xCor[] = new int[n];
 		int yCor[] = new int[n];
-		
+		long modulo = (long) (1e9  + 7);
 		for(int i = 0 ;i<n;i++)
 		{
 			String [] currentCord = bufferedReader.readLine().trim().split(" ");
 			xCor[i] = Integer.parseInt(currentCord[0]);
 			yCor[i] = Integer.parseInt(currentCord[1]);
 		}
-		System.out.println(calculateManhatanDistance(xCor) + calculateManhatanDistance(yCor));
+		System.out.println((calculateManhatanDistance(xCor) + calculateManhatanDistance(yCor))%modulo);
 		inputStreamReader.close();
 		bufferedReader.close();
 	}
@@ -33,7 +33,7 @@ public class Main
 		{
 			totalDis = totalDis + cordinates[i]*i - prefixSum;
 			prefixSum = prefixSum + cordinates[i];
-			totalDis = totalDis%modulo;
+		//	totalDis = totalDis%modulo;
 		}
 		return totalDis;
 	}
