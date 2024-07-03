@@ -1,0 +1,58 @@
+/* package codechef; // don't place package name! */
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+//https://www.codechef.com/practice/course/greedy-algorithms/INTGRA01/problems/MAXDIFF?tab=statement
+/* Name of the class has to be "Main" only if the class is public. */
+ class Codechef
+{
+   public static void main(String[] args) throws NumberFormatException, IOException {
+			
+		InputStreamReader inputStreamReader = new InputStreamReader(System.in);
+		BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+		int testCases = Integer.parseInt(bufferedReader.readLine());
+		
+		while(testCases-- > 0)
+		{
+			String firstLineInput[] = bufferedReader.readLine().split(" ");
+			int arrSize = Integer.parseInt(firstLineInput[0]);
+			int k = Integer.parseInt(firstLineInput[1]);
+			int arr[] = new int[arrSize];
+			String numInput[] = bufferedReader.readLine().trim().split(" ");
+			for(int i = 0 ;i<arr.length;i++)
+			{
+				arr[i] = Integer.parseInt(numInput[i]);
+			}
+			Arrays.sort(arr);
+			//sum of arr
+			long sum = 0l;
+			for(int i =0 ;i<arr.length;i++)
+			{
+				sum = sum + arr[i];
+			}
+			//sum of smallest k items
+			
+			long sumSmallKItems = 0l;
+			for(int i =0; i<k;i++)
+			{
+				sumSmallKItems = sumSmallKItems + arr[i];
+			}
+			//max possible diff max(abs(totalWeight - 2*firstKWeight),abs(totalWeight - 2*(lastKWeight)));
+			long differenceOne = sum > 2*sumSmallKItems ? sum - 2*sumSmallKItems : 2*sumSmallKItems - sum;
+			
+			long sumLargeKItems = 0l;
+// 			for(int i = arr.length-1;i>=arr.length-k;i--)
+// 			{
+// 				sumLargeKItems = sumLargeKItems + arr[i];
+// 			}
+			
+			for(int i = k;i<arr.length;i++)
+			{
+				sumLargeKItems = sumLargeKItems + arr[i];
+			}
+			long differenceTwo = sum > 2*sumLargeKItems ? sum - 2*sumLargeKItems : 2*sumLargeKItems - sum;
+			System.out.println(differenceOne > differenceTwo ? differenceOne : differenceTwo);//select max
+		}//while 
+	}
+
+}
