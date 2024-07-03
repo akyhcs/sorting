@@ -1,0 +1,40 @@
+/* package codechef; // don't place package name! */
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+
+/* Name of the class has to be "Main" only if the class is public. */
+public class Main
+{
+   	public static void main(String[] args) throws NumberFormatException, IOException {
+		InputStreamReader inputStreamReader = new InputStreamReader(System.in);
+		BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+		int n = Integer.parseInt(bufferedReader.readLine().trim());
+		int xCor[] = new int[n];
+		int yCor[] = new int[n];
+		
+		for(int i = 0 ;i<n;i++)
+		{
+			String [] currentCord = bufferedReader.readLine().trim().split(" ");
+			xCor[i] = Integer.parseInt(currentCord[0]);
+			yCor[i] = Integer.parseInt(currentCord[1]);
+		}
+		System.out.println(calculateManhatanDistance(xCor) + calculateManhatanDistance(yCor));
+		inputStreamReader.close();
+		bufferedReader.close();
+	}
+
+	private static long calculateManhatanDistance(int[] cordinates) {
+		long prefixSum = 0l;
+		long totalDis = 0l;
+		long modulo = (long) (1e9  + 7);
+		Arrays.sort(cordinates);
+		for(int i = 0 ;i<cordinates.length;i++)
+		{
+			totalDis = totalDis + cordinates[i]*i - prefixSum;
+			prefixSum = prefixSum + cordinates[i];
+			totalDis = totalDis%modulo;
+		}
+		return totalDis;
+	}
+}
