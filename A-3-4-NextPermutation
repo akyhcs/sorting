@@ -1,0 +1,33 @@
+class Solution {
+    public void nextPermutation(int[] nums) {
+        
+		int x = nums.length-1;
+		//find where a<b<c<d<k<=l>=m>=n>=o descending order breaks from back
+		while (x > 0 && nums[x-1]>=nums[x]) {
+			x--;
+		}
+		if(x-1 >= 0)
+		{
+			//find the element which is greater exactly greater than nums[x-1] and swap
+			
+			for(int y = nums.length-1;y>=x;y--)
+			{
+				if(nums[y] > nums[x-1])
+				{
+					//swap
+					swap(nums,x-1,y);
+					break;
+				}///
+			}///
+			
+		}///
+		Arrays.sort(nums, x, nums.length);
+		
+    }
+	private void swap(int[] nums, int i, int y) {
+		int temp = nums[i];
+		nums[i] = nums[y];
+		nums[y] = temp;
+	}
+}
+///https://leetcode.com/problems/next-permutation/
