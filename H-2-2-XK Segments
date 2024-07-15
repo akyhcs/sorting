@@ -1,0 +1,41 @@
+import java.util.Arrays;
+import java.util.Scanner;
+
+public class XKSegmentsBruteForce {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        // Reading inputs
+        int n = scanner.nextInt();
+        long x = scanner.nextLong();
+        long k = scanner.nextLong();
+        long[] a = new long[n];
+        for (int i = 0; i < n; i++) {
+            a[i] = scanner.nextLong();
+        }
+        scanner.close();
+
+        // Sort the array
+        Arrays.sort(a);
+
+        long count = 0;
+
+        // Brute force approach
+        for (int i = 0; i < n; i++) {
+            for (int j = i; j < n; j++) {
+                long divisibleCount = 0;
+                for (int l = i; l <= j; l++) {
+                    if (a[l] % x == 0) {
+                        divisibleCount++;
+                    }
+                }
+                if (divisibleCount == k) {
+                    count++;
+                }
+            }
+        }
+
+        System.out.println(count);
+    }
+}
+//https://codeforces.com/problemset/problem/895/B
