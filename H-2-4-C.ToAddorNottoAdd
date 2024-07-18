@@ -1,0 +1,40 @@
+import java.util.Arrays;
+import java.util.Scanner;
+
+public class ToAddOrNotToAdd {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        
+        int n = scanner.nextInt();
+        int k = scanner.nextInt();
+        
+        int[] array = new int[n];
+        for (int i = 0; i < n; i++) {
+            array[i] = scanner.nextInt();
+        }
+        
+        Arrays.sort(array);
+        
+        long currentCost = 0;
+        int left = 0;
+        int maxLength = 0;
+        int bestElement = array[0];
+        
+        for (int right = 0; right < n; right++) {
+            currentCost += array[right];
+            
+            while ((long) array[right] * (right - left + 1) - currentCost > k) {
+                currentCost -= array[left];
+                left++;
+            }
+            
+            if (right - left + 1 > maxLength) {
+                maxLength = right - left + 1;
+                bestElement = array[right];
+            }
+        }
+        
+        System.out.println(maxLength + " " + bestElement);
+    }
+}
+
