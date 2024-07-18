@@ -1,0 +1,77 @@
+// package com.prac.sorting;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.Arrays;
+
+public class KefaCompany {
+	public static void main(String[] args) throws IOException {
+		InputStreamReader inputStreamReader = new InputStreamReader(System.in);
+		BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+		String firstLineInput[] = bufferedReader.readLine().trim().split(" ");
+		int totalFriends = Integer.parseInt(firstLineInput[0]);
+		int minimumDifferenceAmount = Integer.parseInt(firstLineInput[1]);
+		Friend [] friends  = new Friend[totalFriends];
+		for(int i =0 ;i<friends.length;i++)
+		{
+			String currentLineInput[] = bufferedReader.readLine().trim().split(" ");
+//			Friend friend = 
+			friends[i] = new Friend(Integer.parseInt(currentLineInput[0]), Integer.parseInt(currentLineInput[1]));
+		}
+		Arrays.sort(friends);
+// 		System.out.println(Arrays.toString(friends));
+		long maxFriendshipFactor = Long.MIN_VALUE, currentFiendshipFactor = 0;
+		int left=0,right;
+		
+		for(right = 0 ;right<friends.length;right++)
+		{
+			currentFiendshipFactor = currentFiendshipFactor + friends[right].getFactor();
+			
+			while((friends[right].getMoney() - friends[left].getMoney()) >= minimumDifferenceAmount)
+			{
+				currentFiendshipFactor = currentFiendshipFactor - friends[left].getFactor();
+				left++;
+			}
+			maxFriendshipFactor = Math.max(currentFiendshipFactor, maxFriendshipFactor);
+		}
+		System.out.println(maxFriendshipFactor);
+		bufferedReader.close();
+		inputStreamReader.close();
+	}
+}
+class Friend implements Comparable<Friend>
+{
+	private int money;
+	private int factor;
+	public Friend() {}
+	public Friend(int money, int factor) {
+		super();
+		this.money = money;
+		this.factor = factor;
+	}
+	public int getMoney() {
+		return money;
+	}
+	public void setMoney(int money) {
+		this.money = money;
+	}
+	@Override
+	public String toString() {
+		return "{" + money + ", " + factor + "}";
+	}
+	public int getFactor() {
+		return factor;
+	}
+	public void setFactor(int factor) {
+		this.factor = factor;
+	}
+	@Override
+	public int compareTo(Friend o) {
+		// TODO Auto-generated method stub
+		return Integer.compare(this.getMoney(),o.getMoney());
+	}
+		
+}
+
+//https://codeforces.com/contest/580/problem/B
