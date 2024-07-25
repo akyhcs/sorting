@@ -1,41 +1,34 @@
 import java.util.Scanner;
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.Collections;
 
 public class EhabIsAnOddPerson {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         int n = scanner.nextInt();
-        int[] array = new int[n];
+        ArrayList<Integer> arrayList = new ArrayList<>(n);
         
         boolean hasOdd = false;
         boolean hasEven = false;
         
-        // Take all input first
+        // Read input and check for odd and even numbers
         for (int i = 0; i < n; i++) {
-            array[i] = scanner.nextInt();
-        }
-        
-        // Check for odd and even numbers
-        for (int i = 0; i < n; i++) {
-            if (array[i] % 2 == 0) {
+            arrayList.add(scanner.nextInt());
+            if (arrayList.get(i) % 2 == 0) {
                 hasEven = true;
             } else {
                 hasOdd = true;
-            }
-            // Early exit if both odd and even numbers are found
-            if (hasOdd && hasEven) {
-                break;
             }
         }
         
         // Sort if both odd and even numbers are present
         if (hasOdd && hasEven) {
-            Arrays.sort(array);
+            Collections.sort(arrayList);
         }
         
         // Print the result
-        for (int i = 0; i < n; i++) {
-            System.out.print(array[i] + " ");
+        for (int num : arrayList) {
+            System.out.print(num + " ");
         }
     }
 }
