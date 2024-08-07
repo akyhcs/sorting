@@ -1,0 +1,46 @@
+https://codeforces.com/contest/816/problem/B
+
+
+import java.util.Scanner;
+
+public class KarenAndCoffee {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        int n = scanner.nextInt();  // Number of recipes
+        int k = scanner.nextInt();  // Minimum number of recipes for a temperature to be admissible
+        int q = scanner.nextInt();  // Number of queries
+
+        int MAX_TEMP = 200000;
+        int[] diff = new int[MAX_TEMP + 2];  // Difference array to handle range updates
+
+        // Reading the recipes and updating the difference array
+        for (int i = 0; i < n; i++) {
+            int l = scanner.nextInt();
+            int r = scanner.nextInt();
+            diff[l]++;
+            diff[r + 1]--;
+        }
+
+        // Calculating the prefix sum array to get the number of recipes recommending each temperature
+        int[] prefixSum = new int[MAX_TEMP + 2];
+        for (int i = 1; i <= MAX_TEMP; i++) {
+            prefixSum[i] = prefixSum[i - 1] + diff[i];
+        }
+
+        // Calculating the number of admissible temperatures with at least k recommendations
+        int[] atLeastK = new int[MAX_TEMP + 2];
+        for (int i = 1; i <= MAX_TEMP; i++) {
+            atLeastK[i] = atLeastK[i - 1] + (prefixSum[i] >= k ? 1 : 0);
+        }
+
+        // Answering the queries
+        for (int i = 0; i < q; i++) {
+            int a = scanner.nextInt();
+            int b = scanner.nextInt();
+            System.out.println(atLeastK[b] - atLeastK[a - 1]);
+        }
+
+        scanner.close();
+    }
+}
