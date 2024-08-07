@@ -1,0 +1,110 @@
+import java.io.*;
+
+class Main {
+    static void printUnsorted(int arr[], int n) {
+        int s = 0, e = n - 1, i, max, min;
+
+        // Step 1(a) of the algorithm
+        for (s = 0; s < n - 1; s++) {
+            if (arr[s] > arr[s + 1])
+                break;
+        }
+        if (s == n - 1) {
+            System.out.println("The complete array is sorted");
+            return;
+        }
+        System.out.println("s = " + s); // Print s after finding it
+
+        // Step 1(b) of the algorithm
+        for (e = n - 1; e > 0; e--) {
+            if (arr[e] < arr[e - 1])
+                break;
+        }
+        System.out.println("e = " + e); // Print e after finding it
+
+        // Step 2(a) of the algorithm
+        max = arr[s];
+        min = arr[s];
+        for (i = s + 1; i <= e; i++) {
+            if (arr[i] > max)
+                max = arr[i];
+            if (arr[i] < min)
+                min = arr[i];
+        }
+        System.out.println("min = " + min); // Print min after finding it
+        System.out.println("max = " + max); // Print max after finding it
+
+        // Step 2(b) of the algorithm
+        for (i = 0; i < s; i++) {
+            if (arr[i] > min) {
+                s = i;
+                break;
+            }
+        }
+
+        // Step 2(c) of the algorithm
+        for (i = n - 1; i >= e + 1; i--) {
+            if (arr[i] < max) {
+                e = i;
+                break;
+            }
+        }
+
+        // Step 3 of the algorithm
+        System.out.println("The unsorted subarray which makes the given array sorted lies between the indices " + s
+                + " and " + e);
+        return;
+    }
+
+    public static void main(String args[]) {
+        int arr[] = { 0, 1, 15, 25, 6, 7, 30, 40, 50 };
+        int arr_size = arr.length;
+        printUnsorted(arr, arr_size);
+    }
+}
+//https://www.geeksforgeeks.org/minimum-length-unsorted-subarray-sorting-which-makes-the-complete-array-sorted/
+
+
+Explanation of arr[s] in the Unsorted Subarray:Identifying s:The variable s is identified as the first position from the start of the array where the array element is greater than the next element (arr[s] > arr[s + 1]). This indicates that the sorted order is broken at index s.
+Why arr[s] is Part of the Unsorted Subarray:Since arr[s] is greater than arr[s + 1], 
+it means that arr[s] is either too large compared to arr[s + 1] or one of the subsequent elements. Therefore, arr[s] must be part of the unsorted subarray that needs to be sorted to restore the overall order of the array.Setting max and min:By initializing max and min with arr[s], 
+you start with a known value that is definitely part of the unsorted subarray.
+Thks element is critical in determining the correct bounds of the subarray that needs sorting.
+Loop Starting at s + 1:The loop starting at s + 1 ensures that the remaining elements between s and e are considered for finding the actual max and min of the unsorted subarray. Since arr[s] is already factored in during initialization, it doesn't need to be rechecked, which is why the loop starts at s + 1.
+Consideration of Edge Cases:If the assumption about arr[s] being part of the unsorted subarray doesn't hold (which would only happen if the array is somehow already sorted after s),
+the algorithm would correctly identify that no further elements need to be sorted, and the array is already sorted. However, in the context of the problem,
+arr[s] is always part of the unsorted subarray, as it's the first element breaking the sorted order.Clarification:
+The confidence comes from the fact that by definition, s is the first point where the order is disrupted, meaning arr[s] must be part of the subarray that disrupts the sorted order.If you still have concerns, or if you’d like to explore alternative implementations, I'm here to help!
+
+
+In Step 2(c), where we check elements after the identified end index `e`, the reasoning for starting the loop from `e + 1` instead of `e` is based on the assumption that `arr[e]` is already part of the unsorted subarray. Let me explain this in more detail:
+
+### Reasoning Behind Starting from `e + 1`:
+
+1. **Identification of `e`:**
+   - The index `e` is found by traversing the array from the end toward the start. It's the first point where the array order is broken (`arr[e] < arr[e - 1]`). This suggests that `arr[e]` is either too small compared to the previous element or other preceding elements.
+
+2. **Including `arr[e]` in the Unsorted Subarray:**
+   - Since `arr[e]` is the point where the sorted order is broken, it is considered part of the unsorted subarray. The loop that searches for a new `e` by extending the subarray only needs to check elements that come after `arr[e]`.
+
+3. **Why Start from `e + 1`:**
+   - By starting the loop from `e + 1`, you focus on elements that come after the current unsorted subarray (`arr[s]` to `arr[e]`). The purpose of this loop is to check if there are elements after `e` that are smaller than the maximum value within the identified unsorted subarray. 
+This is to ensure that the entire array is sorted when the identified subarray is sorted.
+
+   - If you included `arr[e]` in this check (i.e., started from `e`), you would be unnecessarily comparing an element that is already confirmed to be part of the unsorted subarray. Therefore, starting from `e + 1` is more efficient.
+
+### Example for Clarification:
+
+Consider an array `{0, 1, 15, 25, 6, 7, 30, 40, 50}`:
+
+- After steps 1 and 2(a), suppose `s = 2` (index of `15`) and `e = 5` (index of `7`).
+- The unsorted subarray is `{15, 25, 6, 7}`.
+
+In step 2(c), you check elements after `7` (i.e., starting from `e + 1 = 6`) to see if any are smaller than `25`. If an element after `7` were smaller than `25`, you would need to include that element in the unsorted subarray as well.
+
+### Summary:
+
+The key reason for using `e + 1` is that `arr[e]` is already included in the identified unsorted subarray. The loop starting from `e + 1` ensures that no relevant elements after the current unsorted subarray are missed, which would affect the final sorting.
+
+If you still have questions or would like to see this applied to a specific case, feel free to ask!
+
