@@ -70,3 +70,4 @@ public class Main {
 		}//while
 	}
 }
+A-2-1 A-2-2 is bubble sort and insertion sort
