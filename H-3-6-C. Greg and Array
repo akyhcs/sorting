@@ -1,0 +1,61 @@
+import java.util.Scanner;
+
+public class GregAndArray {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        int n = scanner.nextInt();
+        int m = scanner.nextInt();
+        int k = scanner.nextInt();
+
+        long[] a = new long[n + 1];
+        for (int i = 1; i <= n; i++) {
+            a[i] = scanner.nextLong();
+        }
+
+        int[] l = new int[m + 1];
+        int[] r = new int[m + 1];
+        long[] d = new long[m + 1];
+        for (int i = 1; i <= m; i++) {
+            l[i] = scanner.nextInt();
+            r[i] = scanner.nextInt();
+            d[i] = scanner.nextLong();
+        }
+
+        long[] delta = new long[n + 2];
+        for (int i = 1; i <= m; i++) {
+            delta[l[i]] += d[i];
+            if (r[i] + 1 <= n) delta[r[i] + 1] -= d[i];
+        }
+
+        long[] opCount = new long[m + 2];
+        for (int i = 0; i < k; i++) {
+            int x = scanner.nextInt();
+            int y = scanner.nextInt();
+            opCount[x]++;
+            if (y + 1 <= m) opCount[y + 1]--;
+        }
+
+        for (int i = 1; i <= m; i++) {
+            opCount[i] += opCount[i - 1];
+        }
+
+        // Apply the operation counts to the delta array
+        long[] cumulativeDelta = new long[n + 2];
+        for (int i = 1; i <= m; i++) {
+            cumulativeDelta[l[i]] += d[i] * opCount[i];
+            if (r[i] + 1 <= n) cumulativeDelta[r[i] + 1] -= d[i] * opCount[i];
+        }
+
+        // Apply the cumulative delta to the array a
+        for (int i = 1; i <= n; i++) {
+            if (i > 1) cumulativeDelta[i] += cumulativeDelta[i - 1];
+            a[i] += cumulativeDelta[i];
+        }
+
+        for (int i = 1; i <= n; i++) {
+            System.out.print(a[i] + " ");
+        }
+        scanner.close();
+    }
+}
+https://codeforces.com/contest/296/problem/C
