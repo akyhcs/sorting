@@ -1,0 +1,162 @@
+import java.util.Scanner;
+
+
+
+class MinionsAndVoting {
+
+    public static void main(String[] args) {
+
+        Scanner scanner = new Scanner(System.in);
+
+        
+
+        int T = scanner.nextInt();  // Number of test cases
+
+        
+
+        while (T-- > 0) {
+
+            int N = scanner.nextInt();  // Number of minions
+
+            long[] S = new long[N];  // Influence levels of the minions
+
+            for (int i = 0; i < N; i++) {
+
+                S[i] = scanner.nextLong();
+
+            }
+
+            
+
+            long[] votes = new long[N];
+
+            long[] prefixSums = new long[N + 1];  // Prefix sums array
+
+            
+
+            // Compute prefix sums
+
+            for (int i = 1; i <= N; i++) {
+
+                prefixSums[i] = prefixSums[i - 1] + S[i - 1];
+
+            }
+
+            
+
+            // Calculate votes for each minion using the correct approach
+
+            for (int i = 0; i < N; i++) {
+
+                int leftVoteEnd = binarySearchLeft(S, prefixSums, i);
+
+                int rightVoteStart = binarySearchRight(S, prefixSums, i, N);
+
+                
+
+                if (leftVoteEnd != -1) {
+
+                    for (int j = leftVoteEnd; j < i; j++) {
+
+                        votes[j]++;
+
+                    }
+
+                } 
+
+                
+
+                if (rightVoteStart != -1) {
+
+                    for (int j = i + 1; j <= rightVoteStart; j++) {
+
+                        votes[j]++;
+
+                    }
+
+                } 
+
+            }
+
+            
+
+            // Print the result for this test case
+
+            for (int i = 0; i < N; i++) {
+
+                System.out.print(votes[i] + " ");
+
+            }
+
+            System.out.println();
+
+        }
+
+        
+
+        scanner.close();
+
+    }
+
+
+
+    private static int binarySearchLeft(long[] S, long[] prefixSums, int i) {
+
+        int left = 0, right = i - 1, result = -1;
+
+        while (left <= right) {
+
+            int mid = (left + right) / 2;
+
+            long sumBetween = prefixSums[i] - prefixSums[mid + 1];
+
+            if (S[i] >= sumBetween) {
+
+                result = mid;
+
+                right = mid - 1;
+
+            } else {
+
+                left = mid + 1;
+
+            }
+
+        }
+
+        return result;
+
+    }
+
+
+
+    private static int binarySearchRight(long[] S, long[] prefixSums, int i, int N) {
+
+        int left = i + 1, right = N - 1, result = -1;
+
+        while (left <= right) {
+
+            int mid = (left + right) / 2;
+
+            long sumBetween = prefixSums[mid] - prefixSums[i + 1];
+
+            if (S[i] >= sumBetween) {
+
+                result = mid;
+
+                left = mid + 1;
+
+            } else {
+
+                right = mid - 1;
+
+            }
+
+        }
+
+        return result;
+
+    }
+
+}
+https://www.codechef.com/MARCH18B/problems/MINVOTE
