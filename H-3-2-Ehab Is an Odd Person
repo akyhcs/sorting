@@ -1,0 +1,36 @@
+import java.util.Scanner;
+import java.util.ArrayList;
+import java.util.Collections;
+
+public class EhabIsAnOddPerson {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        int n = scanner.nextInt();
+        ArrayList<Integer> arrayList = new ArrayList<>(n);
+        
+        boolean hasOdd = false;
+        boolean hasEven = false;
+        
+        // Read input and check for odd and even numbers
+        for (int i = 0; i < n; i++) {
+            arrayList.add(scanner.nextInt());
+            if (arrayList.get(i) % 2 == 0) {
+                hasEven = true;
+            } else {
+                hasOdd = true;
+            }
+        }
+        
+        // Sort if both odd and even numbers are present
+        if (hasOdd && hasEven) {
+            Collections.sort(arrayList);
+        }
+        
+        // Print the result
+        for (int num : arrayList) {
+            System.out.print(num + " ");
+        }
+    }
+}
+https://codeforces.com/contest/1174/problem/B
+
