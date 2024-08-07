@@ -1,0 +1,44 @@
+import java.util.Arrays;
+import java.util.Scanner;
+
+public class LittleGirlAndMaximumSum {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        int n = scanner.nextInt();
+        int q = scanner.nextInt();
+        
+        long[] array = new long[n];
+        for (int i = 0; i < n; i++) {
+            array[i] = scanner.nextLong();
+        }
+        
+        long[] delta = new long[n + 1];
+        for (int i = 0; i < q; i++) {
+            int l = scanner.nextInt() - 1;
+            int r = scanner.nextInt() - 1;
+            delta[l]++;
+            if (r + 1 < n) delta[r + 1]--;
+        }
+        
+        scanner.close();
+        
+        long[] counts = new long[n];
+        counts[0] = delta[0];
+        for (int i = 1; i < n; i++) {
+            counts[i] = counts[i - 1] + delta[i];
+        }
+        
+        Arrays.sort(array);
+        Arrays.sort(counts);
+        
+        long maxSum = 0;
+        for (int i = 0; i < n; i++) {
+            maxSum += array[i] * counts[i];
+        }
+        
+        System.out.println(maxSum);
+    }
+}
+
+. Little Girl and Maximum Sum
+https://codeforces.com/contest/276/problem/C
