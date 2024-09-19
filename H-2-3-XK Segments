@@ -45,6 +45,7 @@ public class XKSegments {
     }
 
     // Binary search to find the lower bound
+//return the target or num greater than target
     private static int lowerBound(long[] arr, long key) {
         int low = 0;
         int high = arr.length;
@@ -60,6 +61,7 @@ public class XKSegments {
     }
 
     // Binary search to find the upper bound
+return strictly greater than target
     private static int upperBound(long[] arr, long key) {
         int low = 0;
         int high = arr.length;
