@@ -48,7 +48,7 @@ public class XKSegments {
 //return the target or num greater than target
     private static int lowerBound(long[] arr, long key) {
         int low = 0;
-        int high = arr.length;
+        int high = arr.length;// if target is greater than all the element of array
         while (low < high) {
             int mid = (low + high) / 2;
             if (arr[mid] < key) {
@@ -64,7 +64,7 @@ public class XKSegments {
 return strictly greater than target
     private static int upperBound(long[] arr, long key) {
         int low = 0;
-        int high = arr.length;
+        int high = arr.length;// incase if the target is present on last index so index+1 will the ans
         while (low < high) {
             int mid = (low + high) / 2;
             if (arr[mid] <= key) {
