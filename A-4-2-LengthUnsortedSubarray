@@ -74,10 +74,10 @@ Loop Starting at s + 1:The loop starting at s + 1 ensures that the remaining ele
 Consideration of Edge Cases:If the assumption about arr[s] being part of the unsorted subarray doesn't hold (which would only happen if the array is somehow already sorted after s),
 the algorithm would correctly identify that no further elements need to be sorted, and the array is already sorted. However, in the context of the problem,
 arr[s] is always part of the unsorted subarray, as it's the first element breaking the sorted order.Clarification:
-The confidence comes from the fact that by definition, s is the first point where the order is disrupted, meaning arr[s] must be part of the subarray that disrupts the sorted order.If you still have concerns, or if you’d like to explore alternative implementations, I'm here to help!
+The confidence comes from the fact that by definition, s is the first point where the order is disrupted, meaning arr[s] must be part of the subarray that disrupts the sorted order.
 
 
-In Step 2(c), where we check elements after the identified end index `e`, the reasoning for starting the loop from `e + 1` instead of `e` is based on the assumption that `arr[e]` is already part of the unsorted subarray. Let me explain this in more detail:
+In Step 2(c), where we check elements after the identified end index `e`, the reasoning for starting the loop from `e + 1` instead of `e` is based on the assumption that `arr[e]` is already part of the unsorted subarray. 
 
 ### Reasoning Behind Starting from `e + 1`:
 
