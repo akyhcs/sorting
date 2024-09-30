@@ -25,7 +25,7 @@ class Main {
         // Step 2(a) of the algorithm
         max = arr[s];
         min = arr[s];
-        for (i = s + 1; i <= e; i++) {
+        for (i = s + 1; i <= e; i++) { //to prevent from TLE we are starting from s+1 instead of s
             if (arr[i] > max)
                 max = arr[i];
             if (arr[i] < min)
