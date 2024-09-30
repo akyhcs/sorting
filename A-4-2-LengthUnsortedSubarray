@@ -35,7 +35,7 @@ class Main {
         System.out.println("max = " + max); // Print max after finding it
 
         // Step 2(b) of the algorithm
-        for (i = 0; i < s; i++) { // s cannot be min because arr[s-1] < arr[s]
+        for (i = 0; i < s; i++) { // s is already part of unsorted array so we are not including s
             if (arr[i] > min) {
                 s = i;
                 break;
