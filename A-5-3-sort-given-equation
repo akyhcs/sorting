@@ -22,6 +22,7 @@ class Solution
             long rightVal = transformed[right];
 
             if (A > 0) { // Upward parabola
+// all values are positive in upward parabola so max value we are putting back of array.
                 if (leftVal > rightVal) {
                     result[index--] = leftVal;
                     left++;
@@ -30,6 +31,7 @@ class Solution
                     right--;
                 }
             } else { // Downward parabola
+// all values are negative in downward parabola so min value we are putting infront of array.
                 if (leftVal < rightVal) {
                     result[index++] = leftVal;
                     left++;
