@@ -1,0 +1,63 @@
+/* package codechef; // don't place package name! */
+import java.util.*;
+import java.io.*;
+
+/* Name of the class has to be "Main" only if the class is public. */
+public class Main
+{
+    public static void main (String[] args) throws java.lang.Exception
+    {
+        Scanner scanner = new Scanner(System.in);
+        int testCases = scanner.nextInt();
+        while(testCases-- >0)
+        {
+            int n = scanner.nextInt();
+		    long arr[] = new long[n];
+		    for(int i =0 ;i<n;i++)
+		    {
+			    arr[i] = scanner.nextLong();
+		    }
+		    long countInversion = getInversion(arr,0,arr.length-1);
+		    System.out.println(countInversion);
+        }
+        scanner.close();
+    }
+    private static long getInversion(long[] arr, int low, int high) {
+        long count = 0 ;
+        if(low >= high) return 0;
+        int mid = low + (high-low)/2;
+         count += getInversion(arr,low,mid);
+         count += getInversion(arr,mid+1,high);
+         count += merge(arr,low,mid,high);
+        return count;
+    }
+    	private static long merge(long[] arr, int left, int mid, int right) {
+		long leftArr[] = Arrays.copyOfRange(arr, left, mid+1);
+		long rightArr[] = Arrays.copyOfRange(arr, mid+1,right+1);
+		long count  = 0;
+		int i =0 ,j = 0;
+		
+		while (i < leftArr.length && j < rightArr.length) {
+		    
+			if(leftArr[i]<=rightArr[j])
+			{
+				arr[left] = leftArr[i++];
+			}
+			else
+			{
+			    count += leftArr.length - i;
+				arr[left] = rightArr[j++];
+			}
+			left++;
+		}
+		
+		while (i<leftArr.length) {
+			arr[left++] = leftArr[i++];
+		}
+		while (j<rightArr.length) {
+			arr[left++] = rightArr[j++];
+		}
+		return count;
+	}
+    
+}
