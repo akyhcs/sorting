@@ -1,0 +1,103 @@
+https://www.spoj.com/problems/KAOS/
+
+
+
+
+
+import java.util.*;
+class Kaos {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        
+        int n = scanner.nextInt();
+        scanner.nextLine(); // Consume the newline after the number
+        
+        String[] words = new String[n];
+        for (int i = 0; i < n; i++) {
+            words[i] = scanner.nextLine().trim();
+        }
+        
+        long result = countChaosDegree(words);
+        System.out.println(result);
+        
+        scanner.close();
+    }
+ 
+    public static long countChaosDegree(String[] words) {
+        int n = words.length;
+ 
+        // Sort words normally and reversed words
+        String[] sortedWords = words.clone();
+        Arrays.sort(sortedWords);
+ 
+        String[] reversedWords = new String[n];
+        for (int i = 0; i < n; i++) {
+            reversedWords[i] = new StringBuilder(words[i]).reverse().toString();
+        }
+        Arrays.sort(reversedWords);
+ 
+        // Map from reversed word to its position in the reversed sorted list
+        Map<String, Integer> reversePositionMap = new HashMap<>();
+        for (int i = 0; i < n; i++) {
+            reversePositionMap.put(reversedWords[i], i);
+        }
+ 
+        // Create an array of positions based on the normal sorted order
+        int[] positions = new int[n];
+        for (int i = 0; i < n; i++) {
+            String reversedWord = new StringBuilder(sortedWords[i]).reverse().toString();
+            positions[i] = reversePositionMap.get(reversedWord);
+        }
+ 
+        // Count inversions in the positions array
+        return countInversions(positions, n);
+    }
+ 
+    public static long countInversions(int[] arr, int n) {
+        int[] tempArr = new int[n];
+        return mergeCountSplitInv(arr, tempArr, 0, n - 1);
+    }
+ 
+    public static long mergeCountSplitInv(int[] arr, int[] tempArr, int left, int right) {
+        if (left >= right) {
+            return 0;
+        }
+ 
+        int mid = (left + right) / 2;
+        long invCount = mergeCountSplitInv(arr, tempArr, left, mid);
+        invCount += mergeCountSplitInv(arr, tempArr, mid + 1, right);
+        invCount += mergeAndCount(arr, tempArr, left, mid, right);
+ 
+        return invCount;
+    }
+ 
+    public static long mergeAndCount(int[] arr, int[] tempArr, int left, int mid, int right) {
+        int i = left;    // Starting index for left subarray
+        int j = mid + 1; // Starting index for right subarray
+        int k = left;    // Starting index to be sorted
+        long invCount = 0;
+ 
+        while (i <= mid && j <= right) {
+            if (arr[i] <= arr[j]) {
+                tempArr[k++] = arr[i++];
+            } else {
+                tempArr[k++] = arr[j++];
+                invCount += (mid - i + 1);
+            }
+        }
+ 
+        while (i <= mid) {
+            tempArr[k++] = arr[i++];
+        }
+ 
+        while (j <= right) {
+            tempArr[k++] = arr[j++];
+        }
+ 
+        for (i = left; i <= right; i++) {
+            arr[i] = tempArr[i];
+        }
+ 
+        return invCount;
+    }
+} 
