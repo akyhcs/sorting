@@ -1,0 +1,40 @@
+class Solution {
+	public int countRangeSum(int[] nums, int lower, int upper) {
+		// Create an array for prefix sums
+		long[] prefixSums = new long[nums.length + 1];
+		prefixSums[0] = 0;
+		for (int i = 0; i < nums.length; i++) {
+			prefixSums[i + 1] = prefixSums[i] + nums[i];
+		}
+
+		// Call the merge sort function on the prefix sums array
+		return countWhileMergeSort(prefixSums, 0, prefixSums.length, lower, upper);
+	}
+
+	private int countWhileMergeSort(long[] prefixSums, int start, int end, int lower, int upper) {
+		if (end - start <= 1) return 0;
+		int mid = (start + end) / 2;
+
+		int count = countWhileMergeSort(prefixSums, start, mid, lower, upper)
+				+ countWhileMergeSort(prefixSums, mid, end, lower, upper);
+
+		int j = mid, k = mid, t = mid;
+		long[] cache = new long[end - start];
+		int cacheIndex = 0;
+
+		for (int i = start; i < mid; i++) {
+			while (k < end && prefixSums[k] - prefixSums[i] < lower) k++;
+			while (j < end && prefixSums[j] - prefixSums[i] <= upper) j++;
+			while (t < end && prefixSums[t] < prefixSums[i]) cache[cacheIndex++] = prefixSums[t++];
+			cache[cacheIndex++] = prefixSums[i];
+			count += j - k;
+		}
+
+		// Copy the sorted elements back to the original array
+		System.arraycopy(cache, 0, prefixSums, start, t - start);
+		return count;
+	}
+
+	
+}
+
