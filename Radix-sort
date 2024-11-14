@@ -23,6 +23,42 @@ public class RadixSort {
             int index = (arr[i] / exp) % 10;
             count[index]++;
         }
+/**In the code segment:
+
+int index = (arr[i] / exp) % 10;
+
+this part arr[i] / exp isolates a specific digit from the number in arr[i], and % 10 helps get that digit.
+
+Here's a breakdown:
+
+1. arr[i] / exp: Divides arr[i] by exp to shift the number rightward, essentially bringing the desired digit to the "units" place. For example:
+
+If exp = 1, this operation targets the units digit.
+
+If exp = 10, it targets the tens digit.
+
+If exp = 100, it targets the hundreds digit.
+
+
+
+2. % 10: After dividing, % 10 isolates the units digit of the result, which is the target digit we want to sort by in this pass of counting sort.
+
+
+
+Example
+
+Suppose arr[i] = 123:
+
+If exp = 1: (123 / 1) % 10 results in 3, the units digit.
+
+If exp = 10: (123 / 10) % 10 results in 2, the tens digit.
+
+If exp = 100: (123 / 100) % 10 results in 1, the hundreds digit.
+
+
+This method allows radix sort to process the array digit-by-digit, starting from the least significant to the most significant.*/
+
+
 
         // Update count[i] so that it contains the position of this digit in output array
         for (int i = 1; i < 10; i++) {
