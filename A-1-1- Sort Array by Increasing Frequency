@@ -18,7 +18,7 @@ class Solution {
 					}
 					else
 					{
-						return b - a; // if same frequency then on descending order 
+						return b - a; // if same frequency then on descending order based on num 
 					}
 				}
 				);
