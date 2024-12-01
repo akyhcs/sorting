@@ -1,5 +1,5 @@
 package com.prac.sorting;
-
+//A-2-1 A-2-2 is bubble sort and insertion sort
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -70,4 +70,4 @@ public class Main {
 		}//while
 	}
 }
-A-2-1 A-2-2 is bubble sort and insertion sort
+
