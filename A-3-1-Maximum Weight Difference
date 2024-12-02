@@ -46,7 +46,7 @@ import java.io.*;
 			long differenceOne = sum > 2*sumSmallKItems ? sum - 2*sumSmallKItems : 2*sumSmallKItems - sum;
 			
 			long sumLargeKItems = 0l;
-			for(int i = arr.length-1;i>=arr.length-k;i--)
+			for(int i = arr.length-k;i<arr.length;i++)
 			{
 				sumLargeKItems = sumLargeKItems + arr[i];
 			}
