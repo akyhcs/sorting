@@ -40,6 +40,7 @@ class Codechef
 			long differenceOne = sum > 2*sumSmallKItems ? sum - 2*sumSmallKItems : 2*sumSmallKItems - sum;
 			
 			long sumLargeKItems = 0l;
+//			pick last k element
 // 			for(int i = arr.length-1;i>=arr.length-k;i--)
 // 			{
 // 				sumLargeKItems = sumLargeKItems + arr[i];
