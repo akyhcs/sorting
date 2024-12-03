@@ -1,3 +1,4 @@
+//https://www.geeksforgeeks.org/sum-manhattan-distances-pairs-points/
 /* package codechef; // don't place package name! */
 import java.util.*;
 import java.lang.*;
