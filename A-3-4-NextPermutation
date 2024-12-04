@@ -8,7 +8,7 @@ class Solution {
 		}
 		if(x-1 >= 0)
 		{
-			//find the element which is greater exactly greater than nums[x-1] and swap
+			//find the element which is  just greater than nums[x-1] which will be between x and arr.length-1 and swap
 			
 			for(int y = nums.length-1;y>=x;y--)
 			{
