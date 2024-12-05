@@ -107,7 +107,7 @@ class MinionsAndVoting {
         while (left <= right) {
 
             int mid = (left + right) / 2;
-
+            // extract the sum between i and mid+1
             long sumBetween = prefixSums[i] - prefixSums[mid + 1];
 
             if (S[i] >= sumBetween) {
