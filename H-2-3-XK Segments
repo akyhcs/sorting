@@ -28,7 +28,7 @@ public class XKSegments {
                 high = ((current + x - 1) / x) * x - 1;
             } else {
                 // Calculate the base segment index
-                long base = (current + x - 1) / x + k - 1; //for first k we get an extra divisible by x to maintain it .
+                long base = (current + x - 1) / x + k - 1; //for first k we get an extra divisible by x to maintain it subtract 1 .
                 low = base * x;
                 high = (base + 1) * x - 1;
             }
