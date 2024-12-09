@@ -16,7 +16,7 @@ public class KarenAndCoffeeTwo {
         int q = scanner.nextInt();  // Number of queries
  
         int MAX_TEMP = 200000;
-        int[] diff = new int[MAX_TEMP + 2];  // Difference array to handle range updates
+        int[] diff = new int[MAX_TEMP + 2];  // Difference array to handle range updates  1 for zero and 1 for 2000001
  
         // Reading the recipes and updating the difference array
         for (int i = 0; i < n; i++) {
