@@ -20,13 +20,14 @@ public class GregAndArray {
             r[i] = scanner.nextInt();
             d[i] = scanner.nextLong();
         }
-
+/*
+not required because cumulative delata is calculating it
         long[] delta = new long[n + 2];
         for (int i = 1; i <= m; i++) {
             delta[l[i]] += d[i];
             if (r[i] + 1 <= n) delta[r[i] + 1] -= d[i];
         }
-
+*/
         long[] opCount = new long[m + 2];
         for (int i = 0; i < k; i++) {
             int x = scanner.nextInt();
